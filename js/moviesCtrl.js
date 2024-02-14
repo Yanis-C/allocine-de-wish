@@ -8,7 +8,6 @@ angular
             moviesListService.getMoviesAPIRequest().then(function(data) {
                 let movies = moviesListService.formatAPIMovies(data.results);
                 moviesListService.setMoviesList(movies);
-                console.log($scope.movies);
             }).catch(function(error) {
                 console.log("Error: ", error);
             });

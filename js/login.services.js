@@ -1,7 +1,6 @@
 angular.module('moviesApp')
     .service('AuthService', function ($q, $rootScope) {
         var users = JSON.parse(localStorage.getItem('users')) || [{ name: "user", password: "1234" }];
-        console.log(users);
         var found = false;
 
         this.connected_user = JSON.parse(localStorage.getItem('connected_user')) || {};

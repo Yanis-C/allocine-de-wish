@@ -17,10 +17,10 @@
             </div>
         </div>
         <div class="card" ng-repeat="movie in movies | filter: recherche | orderBy: getOrder() : reverse" style="width: 18rem; cursor: pointer;" ng-click="redirectMovie(movie.id)">
-            <img ng-src="https://image.tmdb.org/t/p/w220_and_h330_face/{{movie.img}}" class="card-img-top" alt="...">
+            <img ng-src="https://image.tmdb.org/t/p/w220_and_h330_face/{{movie.img_2}}" class="card-img-top" alt="...">
             <div class="card-body">
                 <p class="card-text"><b>{{movie.title}}</b></p>
-                <p class="card-text">Note moyenne: <span style="color: gold;">{{movie.rating_moy}}</span></p>
+                <p class="card-text">Note moyenne: <span style="color: gold;">{{movie.rating_moy}}</span> ({{movie.rating_count}} avis)</p>
             </div>
         </div>
     </div>

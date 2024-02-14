@@ -5,6 +5,7 @@ angular
         let id = $routeParams.id;
 
         var movies = moviesListService.getMoviesList();
+        var movie_index;
         if (movies.length == 0) {
             //récupération par api
             moviesListService.getMoviesAPIRequest().then(function(data) {
@@ -13,25 +14,24 @@ angular
             }).catch(function(error) {
                 console.log("Error: ", error);
             });
+        } else {
+            movie_index = movies.findIndex(movie => movie.id == id);
+
+            $scope.movie = movies[movie_index];
+            $scope.isMovieRated = AuthService.isMovieRated($scope.movie.id);
         }
 
-        var movie_index = movies.findIndex(movie => movie.id == id);
-
-        $scope.movie = movies[movie_index];
-        console.log(movie_index, $scope.movie);
-
         $scope.isUserLogged = AuthService.isUserLogged();
-        $scope.isMovieRated = AuthService.isMovieRated($scope.movie.id);
+
 
         $scope.$on('moviesChanged', function(event, newMovies) {
             movies = newMovies;
-            movies.findIndex(movie => movie.id == id);
+            movie_index = movies.findIndex(movie => movie.id == id);
             $scope.movie = movies[movie_index];
             $scope.isMovieRated = AuthService.isMovieRated($scope.movie.id);
 		});
 
         $scope.$on('connectUserChanged', function(event, newConnectUser) {
-            console.log(newConnectUser);
             $scope.isUserLogged = AuthService.isUserLogged();
             $scope.isMovieRated = AuthService.isMovieRated($scope.movie.id);
 		});
