@@ -1,0 +1,13 @@
+<h2>Login</h2>
+
+<form ng-submit="$ctrl.login()">
+    <label for="username">Username:</label>
+    <input type="text" id="username" ng-model="$ctrl.user.username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" ng-model="$ctrl.user.password" required>
+
+    <button type="submit">Login</button>
+</form>
+
+<div ng-if="$ctrl.loginError" style="color: red;">{{ $ctrl.loginError }}</div>

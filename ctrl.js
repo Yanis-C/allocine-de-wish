@@ -1,7 +1,6 @@
-angular
-    .module('moviesApp')
-    .controller('moviesCtrl', function($scope) {
-    
+angular.module('moviesApp.controllers', [])
+    .controller('moviesCtrl', function ($scope) {
+
         $scope.movies = [
             {
                 "title": "Inception",
@@ -33,7 +32,7 @@ angular
                 "ratings": [5, 5, 4, 5, 4, 4, 5],
                 "comments": []
             }
-          ];
-          
-    
+        ];
+
+
     });
