@@ -4,16 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="app.js"></script>
-    <script src="ctrl.js"></script>
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-route.min.js"> </script>
+    <script src="js/app.js"></script>
+    <script src="js/moviesListService.js"></script>
+    <script src="js/login.services.js"></script>
+    <script src="js/indexCtrl.js"></script>
+    <script src="js/moviesCtrl.js"></script>
+    <script src="js/moviePageCtrl.js"></script>
+    <script src="js/login.component.js"></script>
     <title>Allociné de wish</title>
 </head>
 
-<body ng-app="moviesApp" ng-controller="moviesCtrl">
+<body ng-app="moviesApp" ng-controller="indexCtrl as vm">
 
     <h1>Allociné de wish</h1>
+    <a href="#!/login" ng-hide="vm.isUserLogged">Se connecter</a>
+    <a href="#!/register" ng-hide="vm.isUserLogged">S'inscrire</a>
+    <a ng-if="vm.isUserLogged" ng-click="vm.logout()">Se déconnecter</a>
 
-    {{movies}}    
+    <div ng-view></div>
     
 </body>
 
