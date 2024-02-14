@@ -24,7 +24,7 @@ angular.module('moviesApp')
                 localStorage.setItem('connected_user', angular.toJson(connect_user))
                 this.connected_user = JSON.parse(localStorage.getItem('connected_user')) || {};
                 console.log(this.connected_user);
-                window.location.href = "#/";
+                window.location.href = "#!/";
             } else {
                 deferred.reject('Invalid username or password');
             }
@@ -33,14 +33,12 @@ angular.module('moviesApp')
         };
 
         this.logout = function() {
-            console.log('logout');
             localStorage.removeItem('connected_user');
             this.connected_user = JSON.parse(localStorage.getItem('connected_user')) || {};
             console.log(this.connected_user);
         }
 
         this.isUserLogged = function() {
-            console.log(typeof this.connected_user != 'undefined' && typeof this.connected_user.name != 'undefined');
             return (typeof this.connected_user != 'undefined' && typeof this.connected_user.name != 'undefined');
         }
     });

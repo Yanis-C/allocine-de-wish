@@ -1,2 +1,4 @@
-<h3>Page du film {{movie.title}}</h3>
-<p>{{movie}}</p>
+<h3>{{movie.title}}</h3>
+<p>Synopsis: {{movie.desc}}</p>
+<p ng-if="movie.rating_count">Note moyenne: <span style="color: gold;">{{movie.rating_moy}}</span> (sur {{movie.rating_count}} avis)</p>
+{{movie}}

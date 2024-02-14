@@ -41,8 +41,25 @@ angular
         }
     ];
     
+    function calculeMoyenne(ratings) {
+        let sum = 0;
+        for (let i = 0; i < ratings.length; i++) {
+            sum += ratings[i];
+        }
+        return (sum / ratings.length).toFixed(2); // Arrondir à 2 décimales
+    };
+
     return {
         getMoviesList: function() {
+            movies.forEach(function(movie) {
+                let sum = 0
+                movie.ratings.forEach(function(rating) {
+                    sum += rating;
+                }) 
+                movie.rating_count = movie.ratings.length;
+                movie.rating_moy = (sum / movie.ratings.length).toFixed(2);
+            });
+            console.log(movies);
             return movies;
         },
         setMoviesList: function(new_movies) {

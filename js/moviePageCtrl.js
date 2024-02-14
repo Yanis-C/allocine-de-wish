@@ -7,7 +7,6 @@ angular
         let movies = moviesListService.getMoviesList();
 
         $scope.movie = movies.find(movie => movie.ref_movie == ref_movie);
-
         console.log(ref_movie, movies);
 
     })

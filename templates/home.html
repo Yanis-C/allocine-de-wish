@@ -1,2 +1,22 @@
-<h3>Liste des films :</h3>
-<p>{{movies}}</p>
+<div class="container">
+    <div class="row">
+        <div class="row">
+            <div class="col-9">
+                <p class="py-4">Liste des films </p>
+            </div>
+            <div class="col">
+                <div class="input-group py-3">
+                    <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" class="form-control-sm" ng-model="recherche">
+                </div>
+            </div>
+        </div>
+        <div class="card" ng-repeat="movie in movies | filter: recherche" style="width: 18rem; cursor: pointer;" ng-click="redirectMovie(movie.ref_movie)">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text"><b>{{movie.title}}</b></p>
+                <p class="card-text">Note moyenne: <span style="color: gold;">{{movie.rating_moy}}</span></p>
+            </div>
+        </div>
+    </div>
+</div>
