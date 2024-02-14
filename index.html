@@ -23,9 +23,8 @@
 
     <a href="#!/">Accueil</a>
     <h1>Allociné de wish</h1>
-    <a href="#!/login" ng-hide="vm.isUserLogged">Se connecter</a>
-    <a href="#!/register" ng-hide="vm.isUserLogged">S'inscrire</a>
-    <a ng-if="vm.isUserLogged" ng-click="vm.logout()">Se déconnecter</a>
+    <a href="#!/login" ng-hide="vm.isUserLogged">Connexion</a>
+    <a href="" ng-if="vm.isUserLogged" ng-click="vm.logout()">Déconnexion</a>
     <br><br>
     <div ng-view></div>
     

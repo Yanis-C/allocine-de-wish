@@ -7,9 +7,14 @@ angular
         this.test = "test";
 
         this.isUserLogged = AuthService.isUserLogged();
+
+        let vm=this;
+        $scope.$on('connectUserChanged', function(event, newConnectUser) {
+            vm.isUserLogged = AuthService.isUserLogged();
+		});
+
         this.logout = function() {
             AuthService.logout();
         }
-        console.log(this.isUserLogged);
     
     });

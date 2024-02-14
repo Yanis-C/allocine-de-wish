@@ -1,11 +1,37 @@
-<form ng-submit="$ctrl.login()">
-    <label for="username">Username:</label>
-    <input type="text" id="username" ng-model="$ctrl.user.username" required>
+<div ng-show="$ctrl.isLoginPage" style="text-align: center;">
+    <h2>Sign In</h2>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" ng-model="$ctrl.user.password" required>
+    <form ng-submit="$ctrl.login()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" ng-model="$ctrl.user.username" required><br><br>
 
-    <button type="submit">Login</button>
-</form>
+        <label for="password">Password:</label>
+        <input type="password" id="password" ng-model="$ctrl.user.password" required><br><br>
+        <a href="" ng-click="$ctrl.signUp()">Sign Up</a><br><br>
 
-<div ng-if="$ctrl.loginError" style="color: red;">{{ $ctrl.loginError }}</div>
+        <button type="submit">Sign In</button>
+    </form>
+
+    <div ng-if="$ctrl.loginError" style="color: red;">{{ $ctrl.loginError }}</div>
+</div>
+
+<div ng-show="!$ctrl.isLoginPage" style="text-align: center;">
+    <h2>Sign Up</h2>
+
+    <form ng-submit="$ctrl.sign()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" ng-model="$ctrl.user.username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" ng-model="$ctrl.user.password" required><br><br>
+        <label for="passwordConfirm">Password Confirm:</label>
+        <input type="password" id="password" ng-model="$ctrl.user.passwordConfirm" required><br>
+
+
+        <br><a href="" ng-click="$ctrl.signIn()">Sign In</a><br><br>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <div ng-if="$ctrl.signUpError" style="color: red;">{{ $ctrl.signUpError }}</div>
+</div>

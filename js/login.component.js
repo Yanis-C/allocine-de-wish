@@ -21,4 +21,24 @@ angular.module('moviesApp')
                     $ctrl.loginError = 'Invalid username or password';
                 });
         };
+
+        $ctrl.sign = function () {
+            AuthService.sign($ctrl.user)
+                .then(function (response) {
+                    console.log(response);
+                    alert('Sign Up successful');
+                })
+                .catch(function (error) {
+                    console.log('Sign Up failed:', error);
+                    $ctrl.signUpError = error;
+                });
+        }
+
+        $ctrl.signUp = function () {
+            $ctrl.isLoginPage = false;
+        };
+
+        $ctrl.signIn = function () {
+            $ctrl.isLoginPage = true;
+        };
     });

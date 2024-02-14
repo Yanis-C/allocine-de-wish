@@ -1,4 +1,23 @@
 <h3>{{movie.title}}</h3>
 <p>Synopsis: {{movie.desc}}</p>
+
 <p ng-if="movie.rating_count">Note moyenne: <span style="color: gold;">{{movie.rating_moy}}</span> (sur {{movie.rating_count}} avis)</p>
-{{movie}}
+<div ng-show="isUserLogged && !isMovieRated">
+    <select ng-model="new_rating">
+        <option ng-repeat="i in [1,2,3,4,5]" value="{{i}}">{{i}}</option>
+    </select>
+    <button ng-click="sendRate()">Noter</button>
+</div>
+<br>
+
+<p>Commentaires: ({{movie.comments.length}})</p>
+<ul ng-repeat="comment in movie.comments">
+    <li style="list-style-type: circle;">{{comment}}</li>
+</ul>
+<br>
+
+<div ng-show="isUserLogged">
+    <textarea ng-model="new_comment" rows="3"></textarea>
+    <br>
+    <button ng-click="sendComment()">Commenter</button>
+</div>

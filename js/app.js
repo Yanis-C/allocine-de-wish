@@ -12,10 +12,6 @@ app.config(function($routeProvider) {
             controller: 'moviePageCtrl'
         })
 
-        .when('/register', {
-            templateUrl: './templates/register.html'
-        })
-
         .when('/login', {
             templateUrl: './templates/login.html'
         })
