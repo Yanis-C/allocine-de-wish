@@ -7,7 +7,7 @@ app.config(function($routeProvider) {
             controller: 'moviesCtrl'
         })
 
-        .when('/movie/:ref_movie', {
+        .when('/movie/:id', {
             templateUrl: './templates/movie_page.html',
             controller: 'moviePageCtrl'
         })

@@ -1,60 +1,8 @@
 angular
     .module('moviesApp')
-    .factory('moviesListService', function($rootScope) {
+    .factory('moviesListService', function($rootScope, $http) {
 
-        var default_movies = [
-            {
-                "title": "Inception",
-                "desc": "Un voleur habile vole des secrets précieux en pénétrant dans l'esprit de ses cibles lorsqu'elles sont le plus vulnérables : pendant leurs rêves.",
-                "ratings": [5, 5, 4, 5, 4, 4, 5, 4, 4],
-                "comments": [],
-                "ref_movie": "inception"
-            },
-            {
-                "title": "Catwoman",
-                "desc": "Une femme timide et maladroite se transforme en une justicière dotée de pouvoirs de catégorie féline après avoir été impliquée dans un mystérieux complot.",
-                "ratings": [1, 2, 1, 2, 1, 2, 1],
-                "comments": ["Je me suis endormi"],
-                "ref_movie": "catwoman"
-            },
-            {
-                "title": "Le Parrain",
-                "desc": "Le chef d'une famille criminelle américaine transfère progressivement le pouvoir à son fils.",
-                "ratings": [5, 4, 5],
-                "comments": [],
-                "ref_movie": "parrain"
-            },
-            {
-                "title": "Pulp Fiction",
-                "desc": "Une série d'histoires entrelacées sur la violence et le crime à Los Angeles.",
-                "ratings": [4, 5, 4, 5, 4, 5, 4, 5],
-                "comments": [],
-                "ref_movie": "pulp_fiction"
-            },
-            {
-                "title": "Interstellar",
-                "desc": "Un groupe d'explorateurs utilise un trou de ver découvert récemment pour dépasser les limites du voyage spatial humain et conquérir les vastes distances impliquées dans un voyage interstellaire.",
-                "ratings": [5, 5, 4, 5, 4, 4, 5],
-                "comments": ["Très bon film", "intriguant."],
-                "ref_movie": "interstellar"
-            }
-        ];
-
-        function formatMovies(movies) {
-            movies.forEach(function(movie) {
-                let sum = 0
-                movie.ratings.forEach(function(rating) {
-                    sum += parseInt(rating);
-                }) 
-                movie.rating_count = movie.ratings.length;
-                movie.rating_moy = (sum / movie.ratings.length).toFixed(2);
-            });
-            return movies;
-        }
-
-        var movies = formatMovies(JSON.parse(localStorage.getItem('movies_list')) || default_movies);
-
-        localStorage.setItem('movies_list', angular.toJson(movies));
+        var movies = JSON.parse(localStorage.getItem('movies_list')) || [];
         
         return {
             getMoviesList: function() {
@@ -62,8 +10,46 @@ angular
             },
             setMoviesList: function(new_movies) {
                 localStorage.setItem('movies_list', angular.toJson(new_movies));
-                movies = formatMovies(JSON.parse(localStorage.getItem('movies_list')) || default_movies);
+                movies = JSON.parse(localStorage.getItem('movies_list'));
                 $rootScope.$broadcast('moviesChanged',movies);
+            },
+            getMoviesAPIRequest: function() {
+                return $http({
+                    method: 'GET',
+                    url: "https://api.themoviedb.org/3/movie/top_rated?language=fr-FR&page=1&api_key=cc2dec245b0e4503e91dadeaf282eca4"
+                }).then(function successCallback(response) {
+                    return response.data;
+                }, function errorCallback(response) {
+                    return response;
+                });
+            },
+            formatAPIMovies : function(movies) {
+                let movies_formatted = [];
+                movies.forEach(function(movie) {
+                    let movie_formatted = {
+                        title: movie.title,
+                        desc: movie.overview,
+                        id: movie.id,
+                        img: movie.backdrop_path,
+                        img_2: movie.poster_path,
+                        comments: [],
+                        ratings: []
+                    }
+
+                    //Rajouter des avis aléatoires ?
+                    let sum = 0
+                    movie_formatted.ratings.forEach(function(rating) {
+                        sum += parseInt(rating);
+                    }) 
+                    movie_formatted.rating_count = movie_formatted.ratings.length;
+                    movie_formatted.rating_moy = sum > 0 ? (sum / movie_formatted.ratings.length).toFixed(2) : "Pas de note";
+
+                    movies_formatted.push(movie_formatted);
+
+                });
+                
+                return movies_formatted;
             }
+
         };
 });

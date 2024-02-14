@@ -6,13 +6,18 @@
             </div>
             <div class="col">
                 <div class="input-group py-3">
+                    <select ng-model="order">
+                        <option disabled>Trier par...</option>
+                        <option value="alphabetical">Ordre A-Z</option>
+                        <option value="rating">Note</option>
+                    </select>
                     <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
                     <input type="text" class="form-control-sm" ng-model="recherche">
                 </div>
             </div>
         </div>
-        <div class="card" ng-repeat="movie in movies | filter: recherche" style="width: 18rem; cursor: pointer;" ng-click="redirectMovie(movie.ref_movie)">
-            <img src="..." class="card-img-top" alt="...">
+        <div class="card" ng-repeat="movie in movies | filter: recherche | orderBy: getOrder() : reverse" style="width: 18rem; cursor: pointer;" ng-click="redirectMovie(movie.id)">
+            <img ng-src="https://image.tmdb.org/t/p/w220_and_h330_face/{{movie.img}}" class="card-img-top" alt="...">
             <div class="card-body">
                 <p class="card-text"><b>{{movie.title}}</b></p>
                 <p class="card-text">Note moyenne: <span style="color: gold;">{{movie.rating_moy}}</span></p>

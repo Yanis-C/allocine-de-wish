@@ -2,10 +2,6 @@ angular
     .module('moviesApp')
     .controller('indexCtrl', function($scope, AuthService) {
     
-        console.log(AuthService);
-
-        this.test = "test";
-
         this.isUserLogged = AuthService.isUserLogged();
 
         let vm=this;

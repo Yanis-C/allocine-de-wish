@@ -70,18 +70,18 @@ angular.module('moviesApp')
             return (typeof this.connected_user != 'undefined' && typeof this.connected_user.name != 'undefined');
         }
 
-        this.isMovieRated = function(ref_movie) {
+        this.isMovieRated = function(id) {
             if (typeof this.connected_user.rated_movies == 'undefined') return false;
             //Check if the movie is already rated by user
-            let movie_rated = this.connected_user.rated_movies.find(movie => movie == ref_movie);
+            let movie_rated = this.connected_user.rated_movies.find(movie => movie == id);
             return (typeof movie_rated != 'undefined');
         }
 
-        this.rateMovie = function(ref_movie) {
+        this.rateMovie = function(id) {
             if (typeof this.connected_user.rated_movies) {
                this.connected_user.rated_movies = [];
             }
-            this.connected_user.rated_movies.push(ref_movie);
+            this.connected_user.rated_movies.push(id);
             this.setConnectedUser(this.connected_user);
         }
 

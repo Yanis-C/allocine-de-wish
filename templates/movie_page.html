@@ -1,7 +1,7 @@
 <h3>{{movie.title}}</h3>
 <p>Synopsis: {{movie.desc}}</p>
 
-<p ng-if="movie.rating_count">Note moyenne: <span style="color: gold;">{{movie.rating_moy}}</span> (sur {{movie.rating_count}} avis)</p>
+<p>Note moyenne: <span style="color: gold;">{{movie.rating_moy}}</span> (sur {{movie.rating_count}} avis)</p>
 <div ng-show="isUserLogged && !isMovieRated">
     <select ng-model="new_rating">
         <option ng-repeat="i in [1,2,3,4,5]" value="{{i}}">{{i}}</option>
@@ -21,3 +21,5 @@
     <br>
     <button ng-click="sendComment()">Commenter</button>
 </div>
+
+<img ng-src="https://image.tmdb.org/t/p/w220_and_h330_face/{{movie.img2}}" class="card-img-top" alt="...">

@@ -2,27 +2,38 @@ angular
     .module('moviesApp')
     .controller('moviePageCtrl', function($scope, $routeParams, moviesListService, AuthService) {
         
-        let ref_movie = $routeParams.ref_movie;
+        let id = $routeParams.id;
 
         var movies = moviesListService.getMoviesList();
-        var movie_index = movies.findIndex(movie => movie.ref_movie == ref_movie);
+        if (movies.length == 0) {
+            //récupération par api
+            moviesListService.getMoviesAPIRequest().then(function(data) {
+                movies = moviesListService.formatAPIMovies(data.results);
+                moviesListService.setMoviesList(movies);
+            }).catch(function(error) {
+                console.log("Error: ", error);
+            });
+        }
+
+        var movie_index = movies.findIndex(movie => movie.id == id);
 
         $scope.movie = movies[movie_index];
         console.log(movie_index, $scope.movie);
 
         $scope.isUserLogged = AuthService.isUserLogged();
-        $scope.isMovieRated = AuthService.isMovieRated($scope.movie.ref_movie);
+        $scope.isMovieRated = AuthService.isMovieRated($scope.movie.id);
 
         $scope.$on('moviesChanged', function(event, newMovies) {
             movies = newMovies;
-            movies.findIndex(movie => movie.ref_movie == ref_movie);
+            movies.findIndex(movie => movie.id == id);
             $scope.movie = movies[movie_index];
+            $scope.isMovieRated = AuthService.isMovieRated($scope.movie.id);
 		});
 
         $scope.$on('connectUserChanged', function(event, newConnectUser) {
             console.log(newConnectUser);
             $scope.isUserLogged = AuthService.isUserLogged();
-            $scope.isMovieRated = AuthService.isMovieRated($scope.movie.ref_movie);
+            $scope.isMovieRated = AuthService.isMovieRated($scope.movie.id);
 		});
 
         $scope.sendComment = function() {
@@ -36,7 +47,7 @@ angular
             movies[movie_index]['ratings'].push(parseInt($scope.new_rating));
             //Send
             moviesListService.setMoviesList(movies);
-            AuthService.rateMovie($scope.movie.ref_movie);
+            AuthService.rateMovie($scope.movie.id);
             $scope.new_rating = 1;
         }
     })
